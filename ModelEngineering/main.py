@@ -1,4 +1,4 @@
-from methoden import data_preparation, random_forest_feature_selection
+from methoden import data_preparation
 from methoden import featureextraction
 from methoden import metrics, featureextraction_lags, featureextraction_sby, residuals_histo, residuals_scatter, \
     feature_importance
@@ -243,8 +243,6 @@ def main():
     # Vergleich anderer Modellarten mit Lags in Featureauswahl
     # Eigene Merkmalserzeugung und Auswahl - Nochmal neu, da mit Lags andere größen bei Trainings- und Testdaten enstehen
     X_trainval, X_test, y_trainval, y_test = featureextraction_lags(df, y_name)
-
-    X_trainval, X_test, y_trainval, y_test= random_forest_feature_selection(X_trainval, X_test, y_trainval, y_test)
 
     # Erneutes Aufteilen der Trainingsdaten on Trainingsdaten und Validierungsdaten
     X_train, X_val, y_train, y_val = train_test_split(X_trainval, y_trainval, test_size=0.2, shuffle=False)
