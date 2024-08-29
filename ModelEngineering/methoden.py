@@ -371,29 +371,3 @@ def feature_importance(forecaster):
     plt.title('Feature Importances')
     plt.show()
 
-
-# Featureauswahl mit Random Forest für direkte multi-step Modelle
-def random_forest_feature_selection(X_train, X_test, y_train, y_test):
-    # Random Forest Modell trainieren
-    rf = RandomForestRegressor(n_estimators=100, random_state=42)
-    rf.fit(X_train, y_train)
-
-    # Feature Importances erhalten
-    importances = rf.feature_importances_
-    feature_names = X_train.columns
-
-    # Sortieren der Features nach ihrer Wichtigkeit
-    sorted_indices = importances.argsort()[::-1]
-
-    # Plotten der Feature Importances
-    plt.figure(figsize=(10, 8))
-    sns.barplot(y=feature_names[sorted_indices], x=importances[sorted_indices], orient='h')
-    plt.title('Feature Importances (Random Forest)')
-    plt.show()
-
-    # Auswahl der wichtigsten Features (zum Beispiel die Top 20)
-    important_features = feature_names[sorted_indices][:20]
-    X_train_selected = X_train[important_features]
-    X_test_selected = X_test[important_features]
-
-    return X_train_selected, X_test_selected, y_train, y_test
